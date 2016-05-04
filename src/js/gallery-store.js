@@ -95,7 +95,7 @@ export default function GalleryStore(event) {
   const computeZoomBox = () => {
 
     let zoomBox = this.zoomBox = {};
-    zoomBox.width = opts.zoomWidth < this.width ? opts.zoomWidth : this.width - 30;
+    zoomBox.width = opts.zoomWidth < this.width ? opts.zoomWidth : this.width - 20;
     zoomBox.height = opts.zoomHeight < this.clientHeight ? opts.zoomHeight : this.clientHeight -40;
     zoomBox.top = (this.height - zoomBox.height)/2;
     zoomBox.left = (this.width - zoomBox.width)/2;

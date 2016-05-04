@@ -6,13 +6,17 @@ justified-gallery
     style="height: {store.height}px; width: {store.width}px;", 
     entries="{store.entries}",
     path="{store.path}",
-    dispatcher="{store.dispatcher}",
-    is_modal="{store.showModal}"
+    dispatcher="{store.dispatcher}"
   )
 
   #desciption(style="width: {store.width}px")
     h3.header {store.name}
     raw(html="{store.desc.es}")
+
+  modal(
+    is_modal="{store.showModal}", 
+    dispatcher="{store.dispatcher}"
+  )
 
   style(scoped).
     :scope {
@@ -33,8 +37,6 @@ justified-gallery
 
 container
 
-  #modal(class="{opts.is_modal ? 'show' : ''}", onclick="{zoomOut}")
-
   //- box tag
   div(
     data-is="box", 
@@ -50,50 +52,14 @@ container
     :scope {
       position: relative;
     }
-    #modal {
-      position: absolute;
-      top: 0px;
-      left: 0px;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(255, 255, 255, 0);
-      background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAMAAABFaP0WAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAAZQTFRF////AAAAVcLTfgAAAAJ0Uk5T/wDltzBKAAAAEElEQVR42mJgYGRgZAQIMAAADQAExkizYQAAAABJRU5ErkJggg==');
-      z-index: 98;
-      visibility: hidden;
-      opacity: 0;
-      transition: visibility 0s linear, opacity 5s ease;
-    }
-    #modal.show {
-      visibility: visible;
-      opacity: 1;
-      background-color: rgba(255, 255, 255, 1);
-      transition: background-color .5s ease;
-    }
     .tofront {
       z-index: 200;
     }
     a {
       cursor: url(/assets/img/zoom-in.png) 9 9, auto;
     }
-    .zoomin .frame {
-      border: 5px solid rgba(255, 255, 255, 0.3);
-    }
     .zoomin a {
       cursor: url(/assets/img/zoom-out.png) 9 9, auto;
-    }
-    .show_modal {
-      animation: show_modal .8s ease;
-    }
-    @keyframes show_modal {
-      from { opacity: 0; }
-      to   { opacity: 1; }
-    }
-
-  script.
-
-    let event = opts.dispatcher;
-    this.zoomOut = () => {
-      event.trigger(event.IMG_ZOOM_OUT);
     }
 
 box
@@ -101,15 +67,10 @@ box
   a(href="#_{id}", onclick="{zoom}")
       
     img_comp(
-      if="{img_comp}", 
       class="{zoom}", 
       runup="{img_comp.runup}", 
       back="{opts.path}/{img_comp.back}", 
       fore="{opts.path}/{img_comp.fore}"
-    )
-
-    div(
-      if="{div}"
     )
 
   style(scoped).
@@ -118,7 +79,7 @@ box
       position: absolute;
       transition-property: left, top, height, width;
       transition-duration: .2s;
-      transition-timing-function: ease;
+      transition-timing-function: cubic-bezier(.29,.06,.03,1);
     }
     
 
@@ -140,13 +101,13 @@ img_comp
   .image
 
     img(id="runup", if="{!loaded}", class="full fadein", src="{opts.runup}")
-    #texture(if="{!loaded}", class="frame full")
-    img(id="base", class="frame max fadein", src="{opts.back}")
-    img(src="{opts.fore}", class="frame max")
+    #texture(if="{!loaded}", class="pos full")
+    img(id="base", class="pos max fadein", src="{opts.back}")
+    img(if="{opts.fore}" src="{opts.fore}", class="pos max")
 
   style(scoped).
 
-    .frame {
+    .pos {
       position: absolute;
       top: 0;
       left:50%;
@@ -170,6 +131,9 @@ img_comp
       from { opacity: 0; }
       to   { opacity: 1; }
     }
+    .fix {
+      border-color: rgba(255, 255, 255, 0);
+    }
 
   script.
 
@@ -177,6 +141,49 @@ img_comp
       this.base.classList.remove('fadein');
       this.loaded = true;
     }, false);
+
+modal
+  
+  .modal(
+    class="{opts.is_modal ? 'show' : ''}", 
+    onclick="{zoomOut}"
+  )
+
+  style.
+
+    * { padding: 0; margin: 0; }
+    html, body, main, section, .modal {
+        min-height: 100% !important;
+        height: 100%;
+    }
+
+    .modal {
+      position: fixed;
+      top: 0px;
+      left: 0px;
+      width: 100vw;
+      min-height: 100vh;
+      overflow: hidden;
+      background-color: rgba(255, 255, 255, 0);
+      background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAMAAABFaP0WAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAAZQTFRF////AAAAVcLTfgAAAAJ0Uk5T/wDltzBKAAAAEElEQVR42mJgYGRgZAQIMAAADQAExkizYQAAAABJRU5ErkJggg==');
+      z-index: 98;
+      visibility: hidden;
+      opacity: 0;
+      transition: visibility 0s linear, opacity 5s ease;
+    }
+    .show {
+      visibility: visible;
+      opacity: 1;
+      background-color: rgba(255, 255, 255, 1);
+      transition: background-color .5s ease;
+    }
+
+  script.
+
+    let event = opts.dispatcher;
+    this.zoomOut = () => {
+      event.trigger(event.IMG_ZOOM_OUT);
+    }
 
 raw
   .body(id="content" data="{this.set(this.opts.html)}")
