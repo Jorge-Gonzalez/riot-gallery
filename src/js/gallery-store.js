@@ -32,14 +32,15 @@ export default function GalleryStore(event) {
 
   this.on(event.GALLERY_LOAD, (id = opts.first) => {
     loadGalleryData(id);
-    computeBoxesLayout();
+    this.computeBoxesLayout();
     computeZoomBox();
     triggerChanged();
+    console.log()
   });
 
   this.on(event.WINDOW_RESIZE, (ev) => {
     updateSizes();
-    computeBoxesLayout();
+    this.computeBoxesLayout();
     computeZoomBox();
     if (this.isZoomIn) event.trigger(event.IMG_ZOOM_OUT);
     triggerChanged();
@@ -74,22 +75,15 @@ export default function GalleryStore(event) {
   }
 
   const loadGalleryData = (id) => {
-    Object.assign(this, gallData.galleries.find( gallery => gallery.dir == id ));
+    Object.assign(this, gallData.galleries.find( gall => gall.dir == id ));
     this.path = opts.path + this.dir;
   }
 
   const updateSizes = () => {
     let winWidth = _.getWindowWidth();
     this.width = opts.width < winWidth ? opts.width : winWidth - 30;
+    console.log(this.width)
     this.clientHeight = _.getWindowHeight();
-  }
-
-  const computeBoxesLayout = () => {
-    let geometry = justifiedLayout(this.ratios, {containerWidth: this.width});
-    // Fix sizes after tuning positions
-    geometry.boxes.forEach((box) => box.height = box.width * .75 ); // 4:3
-    this.entries = this.entries.map( (entry, idx) => ({ ...entry, ...geometry.boxes[idx], idx:idx, zoomIn:false, toFront:false}) );
-    this.height = geometry.containerHeight;
   }
 
   const computeZoomBox = () => {
@@ -128,7 +122,7 @@ export default function GalleryStore(event) {
 
   const createZoomStyle = () => {
     // A styleSheet for the dynamic styles.
-    this.styleSheet = createStyleSheet({id: "gallery-styles"});
+    this.styleSheet = createStyleSheet({id: "this-styles"});
     // Dynamic css rule for the zoom box.
     this.zoomCSSRule = addCSSRule('.zoomin {}', this.styleSheet);
   }
@@ -139,4 +133,10 @@ export default function GalleryStore(event) {
       this.zoomCSSRule.style.setProperty(prop, this.zoomBox[prop]+'px', 'important');
     }
   }
+}
+
+GalleryStore.prototype.computeBoxesLayout = function () {
+  let geometry = justifiedLayout(this.ratios, {containerWidth: this.width, targetRowHeightTolerance: .25});
+  this.entries = this.entries.map( (entry, idx) => ({ ...entry, ...geometry.boxes[idx], idx:idx, zoomIn:false, toFront:false}) );
+  this.height = geometry.containerHeight;
 }

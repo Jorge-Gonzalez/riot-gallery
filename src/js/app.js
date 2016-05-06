@@ -7,7 +7,7 @@
 require('../css/main.css'); // css next no me esta gustando por el momento
 
 import riot from 'riot';
-import GalleryStore from './gallery-store.js';
+import GalleryStore from './portfolio-store.js';
 import dispatcher from './dispatcher.js';
 import '../tags/justified-gallery.tag'
 // import './tags.js'
