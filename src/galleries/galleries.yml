@@ -83,7 +83,7 @@ galleries:
           back: gestion.jpg
           fore: gestion.png
 
-    ratios: [1.33, 1.33, 1.21, 1.21, 1.21]
+    ratios: [1.33, 1.33, 1.33, 1.33, 1.33]
 
   - dir: Popular_Pensiones_2004
     name: Popular Pensiones 2004
