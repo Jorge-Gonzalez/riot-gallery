@@ -1,0 +1,18 @@
+modal
+  #panel.modal(
+    class="{opts.is_modal ? 'show' : ''}", 
+    onclick="{zoomOut}"
+  )
+
+  script.
+
+    let event = opts.dispatcher
+    let throttle = require('../../lib/throttle')
+
+    this.root.addEventListener(
+      'transitionend', 
+      throttle(ev => !opts.is_modal && event.trigger(event.TRANSITION_END), 20), 
+      false
+    )
+
+    this.zoomOut = () => event.trigger(event.IMG_ZOOM_OUT)

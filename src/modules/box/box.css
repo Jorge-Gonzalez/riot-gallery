@@ -1,0 +1,6 @@
+[data-is="box"] {
+  position: absolute;
+  transition-property: left, top, height, width;
+  transition-duration: .2s;
+  transition-timing-function: cubic-bezier(.29,.06,.03,1);
+}

@@ -1,0 +1,22 @@
+box
+
+  a(href="{opts.zoom_enabled ? '#'+id : ''}", onclick="{click}", class="{opts.zoom_enabled ? 'zoom-cursor' : ''}")
+      
+    img-comp(
+      runup="{img_comp.runup}", 
+      back="{opts.path}/{img_comp.back}", 
+      fore="{opts.path}/{img_comp.fore}"
+    )
+    
+  script.
+
+    const throttle = require('../../lib/throttle')
+    const event = opts.dispatcher
+
+    this.click = (ev) => {
+      event.trigger(event.IMAGE_CLICK, this.id)
+    }
+
+    //- this.root.addEventListener('transitionend', throttle((ev) => { 
+    //-   event.trigger(event.TRANSITION_END, this.id)
+    //- }, 10), false)

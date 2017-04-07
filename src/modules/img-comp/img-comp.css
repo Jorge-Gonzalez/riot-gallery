@@ -1,0 +1,40 @@
+img-comp .tl {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+img-comp .pos {
+  position: absolute;
+  top: 0;
+  left:50%;
+  transform: translateX(-50%);
+}
+img-comp .max {
+  max-width: 100%;
+  max-height: 100%;
+}
+img-comp .full {
+  width: 100%;
+  height: 100%;
+}
+img-comp .blur {
+  /*filter: url(#blur);*/
+  opacity: 0.8;
+}
+img-comp #texture {
+  background: rgba(255, 255, 255, 0.3) url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAMAAABFaP0WAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAAZQTFRF////AAAAVcLTfgAAAAJ0Uk5T/wDltzBKAAAAEElEQVR42mJgYGRgZAQIMAAADQAExkizYQAAAABJRU5ErkJggg==') fixed;
+}
+img-comp .fadein {
+  animation: fadein 2s ease;
+}
+@keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+img-comp .border {
+  /* box-sizing: border-box; */
+  outline: 1px solid #aaa;
+}
+img-comp .hide {
+  visibility: hidden;
+}

@@ -1,0 +1,7 @@
+galleries-menu li {
+  display: inline-block;
+}
+galleries-menu a {
+  text-decoration: none;
+  padding: 10px;
+}

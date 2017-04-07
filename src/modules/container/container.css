@@ -1,0 +1,12 @@
+[data-is="container"] {
+  position: relative;
+}
+[data-is="container"] .tofront {
+  z-index: 200;
+}
+[data-is="container"] a.zoom-cursor {
+  cursor: url(/assets/img/zoom-in.png) 9 9, auto;
+}
+[data-is="container"] .zoomin a.zoom-cursor {
+  cursor: url(/assets/img/zoom-out.png) 9 9, auto;
+}

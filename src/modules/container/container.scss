@@ -1,0 +1,14 @@
+[data-is="container"] {
+
+  position: relative;
+
+	.tofront {
+	  z-index: 200;
+	}
+	a.zoom-cursor {
+	  cursor: url(/assets/img/zoom-in.png) 9 9, auto;
+	}
+	.zoomin a.zoom-cursor {
+	  cursor: url(/assets/img/zoom-out.png) 9 9, auto;
+	}
+}

@@ -1,0 +1,17 @@
+img-comp
+
+  .image
+
+    img(id="runup", if="{!loaded}", class="full blur", src="{opts.runup}")
+    #texture(if="{!loaded}", class="full tl")
+    img(id="back", class="fadein pos max border", src="{opts.back}")
+    img(id="fore" if="{opts.fore}" src="{opts.fore}", class="fadein pos max")
+
+  script.
+
+    this.loaded = false
+    this.back.addEventListener('animationend', () => {
+      this.texture.classList.add('hide')
+      this.runup.classList.add('hide')
+      this.loaded = true
+    }, false)

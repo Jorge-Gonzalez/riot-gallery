@@ -1,0 +1,15 @@
+first: Popular_Pensiones_2007
+path: '/assets/galleries/'
+galleries:
+  - dir: Muebles_Conceptuales
+    name: Muebles Conceptuales
+  - dir: Popular_Pensiones_2004
+    name: Popular Pensiones 2004
+  - dir: Popular_Pensiones_2007
+    name: Popular Pensiones 2007
+width: 1060
+zoomWidth: 768
+zoomHeight: 576
+fullWidthCadence: false
+route: Proyecto
+lang: en

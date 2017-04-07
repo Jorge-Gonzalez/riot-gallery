@@ -1,0 +1,40 @@
+* { padding: 0; margin: 0; }
+
+html, body, main, section, .modal {
+    min-height: 100% !important;
+    height: 100%;
+}
+
+.modal {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  height: 0px;
+  width: 0px;
+  /*min-height: 100vh;
+  width: 100vw;*/
+  overflow: hidden;
+  background-color: rgba(255, 255, 255, 0);
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAMAAABFaP0WAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAAZQTFRF////AAAAVcLTfgAAAAJ0Uk5T/wDltzBKAAAAEElEQVR42mJgYGRgZAQIMAAADQAExkizYQAAAABJRU5ErkJggg==');
+  z-index: 98;
+  /*visibility: hidden;*/
+  opacity: 0;
+  transition-property: opacity, background-color, width, height;
+  transition-duration: .3s,    .3s,              0s,    0s;
+  transition-delay:    0s,     0s,              .3s,    .3s;
+  /*transition:visibility 0s, background-color .5s linear;*/
+  /*transition: visibility 0s linear 0.5s, background-color .5s ease;*/
+  /*transition: opacity 5s ease, background-colorlinear .5s ease;*/
+}
+.show {
+  /*visibility: visible;*/
+  min-height: 100vh;
+  width: 100vw;
+  opacity: 1;
+  transition-property: opacity, background-color, width, height;
+  transition-duration: .5s,    .5s,              0s,    0s;
+  transition-delay: 0s;
+  background-color: rgba(255, 255, 255, 1);
+  /*transition: visibility 0s linear .5s, background-color .5s ease;*/
+  /*transition: background-color .5s ease;*/
+}

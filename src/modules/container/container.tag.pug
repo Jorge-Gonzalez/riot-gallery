@@ -1,0 +1,13 @@
+container
+
+  //- box tag
+  div(
+    data-is="box", 
+    each="{opts.entries}",
+    class=" {toFront ? 'tofront' : ''} {zoomIn ? 'zoomin' : ''}", 
+    id="{id}", 
+    style="width: {width}px; height: {height}px; top: {top}px; left: {left}px", 
+    path="{parent.opts.path}",
+    dispatcher="{parent.opts.dispatcher}",
+    zoom_enabled="{parent.opts.zoom_enabled}"
+  )

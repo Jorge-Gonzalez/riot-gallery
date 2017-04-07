@@ -1,0 +1,56 @@
+justified-gallery
+  
+  galleries-menu(
+    galleries="{store.config.galleries}",
+    route="{store.config.route}"
+  )
+
+  //- container tag
+  div(
+    data-is="container", 
+    style="height: {store.height}px; width: {store.width}px;", 
+    entries="{store.entries}",
+    path="{store.path}",
+    dispatcher="{store.dispatcher}",
+    zoom_enabled="{store.isZoomEnabled}"
+  )
+
+  //- #desciption(style="width: {store.width}px")
+  #desciption(style="width: {store.width}px")
+    h3.header {store.name}
+    .body(data-is="raw" html="{store.desc[store.config.lang]}")
+
+  modal(
+    is_modal="{store.showModal}",
+    zoom_id="{store.zoomId}",
+    dispatcher="{store.dispatcher}"
+  )
+
+  script.
+
+    const throttle = require('../../lib/throttle')
+    const PREV = require('../../constants').PREV
+    const NEXT = require('../../constants').NEXT
+    let store = this.store = opts.store
+    const event = store.dispatcher
+    const keyHanlers = {
+      37: (e) => e.trigger(e.SWITCH_IMAGE, PREV),
+      39: (e) => e.trigger(e.SWITCH_IMAGE, NEXT),
+      27: (e) => e.trigger(e.IMG_ZOOM_OUT)
+    }
+    const keyHandler = (code, event) => keyHanlers[code] && keyHanlers[code](event)
+
+    event.trigger(event.GALLERY_INIT)
+
+    store.on(store.CHANGED_EVENT, () => this.update())
+    
+    window.addEventListener(
+      'resize', 
+      throttle( (ev) => event.trigger(event.WINDOW_RESIZE, ev), 200)
+    )
+    
+    window.addEventListener(
+      'keydown', 
+      (ev) => keyHandler(ev.keyCode, event),
+      false
+    )

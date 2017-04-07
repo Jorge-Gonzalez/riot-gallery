@@ -1,0 +1,15 @@
+gallery
+	//- container tag
+  div(
+    data-is="container", 
+    style="height: {store.height}px; width: {store.width}px;", 
+    entries="{store.entries}",
+    path="{store.path}",
+    dispatcher="{store.dispatcher}",
+    zoom_enabled="{store.isZoomEnabled}"
+  )
+
+  //- #desciption(style="width: {store.width}px")
+  #desciption
+    h3.header {store.name}
+    .body(data-is="raw" html="{store.desc[store.config.lang]}")
