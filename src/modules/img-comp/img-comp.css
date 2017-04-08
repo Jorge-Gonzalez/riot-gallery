@@ -17,10 +17,7 @@ img-comp .full {
   width: 100%;
   height: 100%;
 }
-img-comp .blur {
-  /*filter: url(#blur);*/
-  opacity: 0.8;
-}
+
 img-comp #texture {
   background: rgba(255, 255, 255, 0.3) url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAMAAABFaP0WAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAAZQTFRF////AAAAVcLTfgAAAAJ0Uk5T/wDltzBKAAAAEElEQVR42mJgYGRgZAQIMAAADQAExkizYQAAAABJRU5ErkJggg==') fixed;
 }

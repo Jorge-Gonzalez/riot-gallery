@@ -19,15 +19,17 @@ async function main (src, dest) {
   let files = ls.filter(filename => yamlExtRegex.test(filename))
   dest = dest || src
   files.forEach(async filename => {
-    let output
+    let result
+    let filenameJson
     try {
-      output = yaml.safeLoad(await fs.readFile(path.resolve(src, filename), 'utf8'), { schema: MARKDOWN_SCHEMA })
+      result = yaml.safeLoad(await fs.readFile(path.resolve(src, filename), 'utf8'), { schema: MARKDOWN_SCHEMA })
     } catch (e) {
       console.log(e)
     }
-    fs.writeFile(path.resolve(dest, filename.replace(yamlExtRegex, '.json')), JSON.stringify(output), function (err) {
+    filenameJson = filename.replace(yamlExtRegex, '.json')
+    fs.writeFile(path.resolve(dest, filenameJson), JSON.stringify(result), function (err) {
       if (err) return console.log(err)
-      console.log('Created %s/%s', dest, filename)
+      console.log('Created %s/%s', dest, filenameJson)
     })
   })
 }

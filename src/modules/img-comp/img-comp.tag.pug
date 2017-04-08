@@ -9,9 +9,16 @@ img-comp
 
   script.
 
-    this.loaded = false
-    this.back.addEventListener('animationend', () => {
+    let hideRunup = () => {
       this.texture.classList.add('hide')
       this.runup.classList.add('hide')
+    }
+
+    this.loaded = false
+
+    this.back.addEventListener('animationend', () => {
+      hideRunup()
       this.loaded = true
     }, false)
+
+    this.root.addEventListener('click', () => hideRunup())
